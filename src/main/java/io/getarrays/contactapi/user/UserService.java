@@ -19,7 +19,7 @@ public class UserService {
     }
 
     public User login(String email, String password) {
-        User user = userRepo.findByEmail(email);
+        User user = userRepo.findByUserEmail(email);
 
         if( user != null && passwordEncoder.matches(password, user.getPassword())) {
             return user;

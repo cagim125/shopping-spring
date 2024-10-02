@@ -11,7 +11,7 @@ import java.util.List;
 public class UserService {
 
     private final UserRepo userRepo;
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder;
 
     public User register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));

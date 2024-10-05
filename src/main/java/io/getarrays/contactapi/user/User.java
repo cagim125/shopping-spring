@@ -1,11 +1,13 @@
 package io.getarrays.contactapi.user;
 
+import io.getarrays.contactapi.commnet.Comment;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.boot.model.process.internal.UserTypeResolution;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Data

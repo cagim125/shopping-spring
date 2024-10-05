@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping("/loginOk")
-    public ResponseEntity<Map<String, String>> loginOk() {
+    public ResponseEntity<Map<String, Object>> loginOk() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
@@ -42,15 +42,17 @@ public class UserController {
         String userEmail = customUser.getUsername();
         String displayName = customUser.getDisplayName();
         String authorities = customUser.getAuthorities().toString();
+        Long userId = customUser.getUserId();
 
         System.out.println("로그인한 유저 이메일 :" + userEmail);
         System.out.println("로그인한 유저 아이디 : " + displayName);
         System.out.println("유저 권한:" + authentication.getAuthorities());
 
-        Map<String, String> userInfo = new HashMap<>();
+        Map<String, Object> userInfo = new HashMap<>();
         userInfo.put("email", userEmail);
         userInfo.put("displayName", displayName);
         userInfo.put("authorities", authorities);
+        userInfo.put("userId", userId);
 
         return ResponseEntity.ok(userInfo);
 

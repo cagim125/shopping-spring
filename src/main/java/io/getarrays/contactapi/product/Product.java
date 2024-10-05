@@ -1,11 +1,11 @@
 package io.getarrays.contactapi.product;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import io.getarrays.contactapi.commnet.Comment;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 
 @Entity
@@ -21,5 +21,9 @@ public class Product {
     private double price;
     private int stock;
     private String imgUrl;
+
+
+
+
 
 }

@@ -43,6 +43,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         // 사용자가 있다면 UserDetails 객체 생성
         CustomUser customUser = new CustomUser(user.getUserEmail(), user.getPassword(), authorities);
         customUser.setDisplayName(user.getUserName());
+        customUser.setUserId(user.getId());
         return customUser;
     }
 }

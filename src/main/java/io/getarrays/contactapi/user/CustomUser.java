@@ -9,6 +9,7 @@ import java.util.List;
 @Setter
 @Getter
 public class CustomUser extends User {
+    private Long userId;
     private String displayName;
 
     public CustomUser(String userEmail,

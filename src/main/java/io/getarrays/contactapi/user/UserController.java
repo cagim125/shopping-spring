@@ -1,5 +1,6 @@
 package io.getarrays.contactapi.user;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
@@ -34,10 +35,12 @@ public class UserController {
     }
 
     @GetMapping("/loginOk")
-    public ResponseEntity<Map<String, Object>> loginOk() {
+    public ResponseEntity<Map<String, Object>> loginOk(HttpSession session) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
+
+        session.setAttribute("user", customUser);
 
         String userEmail = customUser.getUsername();
         String displayName = customUser.getDisplayName();
@@ -69,6 +72,14 @@ public class UserController {
     public ResponseEntity<Void> getAdminPage() {
         System.out.println("어드민 인증 성공");
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/checkSession")
+    public ResponseEntity<Map<String, Boolean>> checkSession(HttpSession session) {
+        Map<String, Boolean> response = new HashMap<>();
+        // 세션에 저장된 "user" 속성이 있으면 인증된 상태
+        response.put("isAuthenticated", session.getAttribute("user") != null);
+        return ResponseEntity.ok(response);
     }
 
 //    @GetMapping("/user")

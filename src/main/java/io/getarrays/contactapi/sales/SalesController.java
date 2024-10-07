@@ -1,9 +1,11 @@
 package io.getarrays.contactapi.sales;
 
 
+import io.getarrays.contactapi.user.CustomUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -43,5 +45,20 @@ public class SalesController {
 
             return ResponseEntity.status(HttpStatus.CREATED).body("새로운 아이템이 추가되었습니다.");
         }
+    }
+
+    @GetMapping("/order")
+    public ResponseEntity<?> getOrder(Authentication auth) {
+
+        if (auth == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인해주세요.");
+        }
+
+        CustomUser user = (CustomUser) auth.getPrincipal();
+
+        var result = salesRepository.findSalesByUserNameNative(user.getDisplayName());
+        System.out.println(result);
+
+        return ResponseEntity.ok().body(result);
     }
 }

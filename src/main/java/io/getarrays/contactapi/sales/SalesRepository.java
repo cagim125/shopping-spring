@@ -22,7 +22,7 @@ public interface SalesRepository extends JpaRepository<Sales, Long> {
                          @Param("count") int count,
                          @Param("price") int price);
 
-    @Query("SELECT s FROM Sales s WHERE s.userId = :userId AND s.itemName = :itemName")
+    @Query("SELECT s FROM Sales s WHERE s.user.id = :userId AND s.itemName = :itemName")
     Optional<Sales> findByUserIdAndItemName(@Param("userId") Long userId, @Param("itemName") String itemName);
 
 

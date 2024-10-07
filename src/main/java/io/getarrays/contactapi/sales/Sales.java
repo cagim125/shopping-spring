@@ -1,5 +1,6 @@
 package io.getarrays.contactapi.sales;
 
+import io.getarrays.contactapi.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -22,7 +23,12 @@ public class Sales {
     private Integer price;
     private Integer count;
 
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(
+            name = "member_id",
+            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT)
+    )
+    private User user;
 
     @CreationTimestamp
     private LocalDateTime created;

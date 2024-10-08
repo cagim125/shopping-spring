@@ -24,14 +24,14 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         System.out.println("request Email :" + email);
-        System.out.println("loadUserByUsername 실행");
+        System.out.println("loadUserByUsername start");
 
         // 사용자 조회, 없으면 예외 발생
         User user = userRepo.findByUserEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException("User not found with email : " + email);
         }
-        List<GrantedAuthority> authorities = new ArrayList<>();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         if (user.getUserEmail().contains("admin")) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         } else if(user.getUserEmail().contains("manager")) {

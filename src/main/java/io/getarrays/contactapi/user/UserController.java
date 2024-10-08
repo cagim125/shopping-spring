@@ -1,5 +1,8 @@
 package io.getarrays.contactapi.user;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
@@ -22,7 +25,6 @@ import java.util.Map;
 public class UserController {
     private final UserService userService;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
-
 
 
     @PostMapping("/join")
@@ -136,7 +138,7 @@ public class UserController {
 
     @PostMapping("/login/jwt")
     @ResponseBody
-    public String loginJWT(@RequestBody Map<String, String> data){
+    public String loginJWT(@RequestBody Map<String, String> data, HttpServletResponse response){
 
         var authToken = new UsernamePasswordAuthenticationToken(
                 data.get("username"), data.get("password")
@@ -145,7 +147,22 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         var jwt = JwtUtil.createToken(SecurityContextHolder.getContext().getAuthentication());
-        System.out.println(jwt);
+        var cookie = new Cookie("jwt", jwt);
+        cookie.setMaxAge(10);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
         return jwt;
+    }
+
+    @GetMapping("/my-page/jwt")
+    @ResponseBody
+    public String mypageJwt(Authentication auth) {
+        var user = (CustomUser) auth.getPrincipal();
+        System.out.println(user);
+        System.out.println(user.getDisplayName());
+        System.out.println(user.getAuthorities());
+        return "마이페이지데이터";
     }
 }

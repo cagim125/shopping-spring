@@ -31,4 +31,5 @@
 
 - 라이브러리 : Spring Web, Spring Data JPA, Lombok,  Spring Security, JWT
 
+## [ERD 데이터 모델링]
 ![image](https://github.com/user-attachments/assets/a8f628be-47bf-4ebd-b0a4-e4937ca5ad52)

@@ -25,8 +25,8 @@ public class Sales {
 
     @ManyToOne
     @JoinColumn(
-            name = "member_id",
-            foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT)
+            name = "user_id"
+//            ,foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT)
     )
     private User user;
 

@@ -29,6 +29,6 @@ public interface SalesRepository extends JpaRepository<Sales, Long> {
 
 
     // 네이티브 쿼리를 사용한 Join
-    @Query(value = "SELECT s.* FROM sales s JOIN `user` u ON s.member_id = u.id WHERE u.user_name = :customerName", nativeQuery = true)
+    @Query(value = "SELECT s.* FROM sales s JOIN `user` u ON s.user_id = u.id WHERE u.user_name = :customerName", nativeQuery = true)
     List<Sales> findSalesByUserNameNative(@Param("customerName") String customerName);
 }
